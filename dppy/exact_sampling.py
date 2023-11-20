@@ -1282,7 +1282,8 @@ def k_dpp_eig_vecs_selector(eig_vals, eig_vecs, size,
     N, k = eig_vecs.shape[0], size
 
     # as in np.linalg.matrix_rank
-    tol = np.max(eig_vals) * N * np.finfo(np.float).eps
+    ### wpq: np.float -> eig_vecs.dtype
+    tol = np.max(eig_vals) * N * np.finfo(eig_vecs.dtype).eps
     rank = np.count_nonzero(eig_vals > tol)
     if k > rank:
         raise ValueError('size k={} > rank={}'.format(k, rank))
